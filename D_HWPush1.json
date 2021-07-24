@@ -1,0 +1,185 @@
+{
+    "flashicon": "icons\/generic_sensor.swf",
+    "imgIconBody": "",
+    "imgIconDimmable": "",
+    "imgIconTurnable": "",
+    "imgIconMin": "",
+    "imgIconMax": "",
+    "halloIconsDir": "pics\/hallo",
+    "state_icons":[  ],  
+    "inScene": "0",
+    "x": "2",
+    "y": "1",
+    "iconText": "0",
+    "DisplayStatus": { },
+    "doc_url":{
+        "doc_forced_url":{
+            "text":"http://www.intvelt.com"
+        }
+    },
+    "ToggleButton": 1,
+    "Tabs": [
+  {
+      "Label": {
+                "lang_tag": "tabname_control",
+                "text": "Control"
+            },
+            "Position": "1",
+            "TabType": "flash",
+            "ControlGroup": [
+                {
+                    "id": "1",
+                    "isSingle": "0",
+                    "scenegroup": "1"
+                }
+            ],
+            "SceneGroup": [
+                {
+                    "id": "1",
+                    "top": "0",
+                    "left": "0",
+                    "x": "2",
+                    "y": "3"
+                }
+            ],
+            "Control": [
+                {
+                    "ControlGroup": "1",
+                    "ControlType": "variable",
+                    "top": "1",
+                    "left": "0",
+        "x": "2",
+                    "Display": {
+                        "Service": "urn:intvelt-com:serviceId:HWPush1",
+                        "Variable": "PushStatus",
+                        "Top": 140,
+                        "Left": 50,
+                        "Width": 200,
+                        "Height": 20
+                    }
+                },
+                {
+                    "ControlPair": "1",
+                    "ControlType": "button",
+                    "top": "2",
+                    "left": "0",
+                    "Label": {
+                        "lang_tag": "cmd_test",
+                        "text": "Test"
+                    },
+                    "Display": {
+                        "Top": 95,
+                        "Left": 50,
+                        "Width": 100,
+                        "Height": 20
+                    },
+                    "Command": {
+                        "Service": "urn:intvelt-com:serviceId:HWPush1",
+                        "Action": "SendMessage",
+                        "Parameters": [
+                        ]
+                    }
+                },
+                {
+                    "ControlType": "label",
+                    "Label": {
+                        "lang_tag": "push_id_label",
+                        "text": "Push ID:"
+                    },
+                    "Display": {
+                        "Top": 200,
+                        "Left": 50,
+                        "Width": 80,
+                        "Height": 20
+                    }
+                },
+                {
+                    "ControlType": "input",
+        "ID": "push_id",
+                    "Display": {
+                        "Top": 195,
+                        "Left": 100,
+                        "Width": 200,
+                        "Height": 20
+                    },
+                },
+                {
+                    "ControlType": "button",
+                    "Label": {
+                        "lang_tag": "cmd_set",
+                        "text": "Set"
+                    },
+                    "Display": {
+                        "Top": 195,
+                        "Left": 350,
+                        "Width": 50,
+                        "Height": 20
+                    },
+                    "Command": {
+                        "Service": "urn:intvelt-com:serviceId:HWPush1",
+                        "Action": "SetID",
+                        "Parameters": [
+          {
+        "Name": "NewID",
+        "ID": "push_id"
+          }
+                        ]
+                    }
+                },
+                {
+                    "ControlType": "label",
+                    "Label": {
+                        "lang_tag": "push_id_current",
+                        "text": "Current:"
+                    },
+                    "Display": {
+                        "Top": 230,
+                        "Left": 50,
+                        "Width": 80,
+                        "Height": 20
+                    }
+                },
+                {
+                    "ControlType": "variable",
+                    "Display": {
+                        "Service": "urn:intvelt-com:serviceId:HWPush1",
+                        "Variable": "PushID",
+                        "Top": 230,
+                        "Left": 100,
+                        "Width": 200,
+                        "Height": 20
+                    }
+                },
+      ]
+        },
+        {
+            "Label": {
+                "lang_tag": "settings",
+                "text": "Settings" 
+            },
+            "Position": "3",
+            "TabType": "javascript",
+            "ScriptName": "shared.js",
+            "Function": "simple_device" 
+        },
+        {
+            "Label": {
+                "lang_tag": "advanced",
+                "text": "Advanced" 
+            },
+            "Position": "4",
+            "TabType": "javascript",
+            "ScriptName": "shared.js",
+            "Function": "advanced_device" 
+        } 
+    ],
+    "eventList": {
+
+    },
+    "eventList2": [
+
+    ],
+    "DeviceType": "urn:schemas-intvelt-com:device:HWPush:1",
+    "device_type": "urn:schemas-intvelt-com:device:HWPush:1" 
+}
+ 

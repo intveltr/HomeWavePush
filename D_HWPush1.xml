@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<root xmlns="urn:schemas-upnp-org:device-1-0">
+  <specVersion>
+    <major>1</major>
+    <minor>0</minor>
+  </specVersion>
+  <device>
+    <deviceType>urn:schemas-intvelt-com:device:HWPush:1</deviceType>
+    <staticJson>D_HWPush1.json</staticJson>
+    <friendlyName>HomeWave Push Plugin</friendlyName>
+    <manufacturer>Intvelt</manufacturer>
+    <protocol>crlf</protocol>
+    <handleChildren>0</handleChildren>
+    <commUse></commUse>
+    <serviceList>
+      <service>
+        <serviceType>urn:schemas-intvelt-com:service:HWPush:1</serviceType>
+        <serviceId>urn:intvelt-com:serviceId:HWPush1</serviceId>
+        <SCPDURL>S_HWPush1.xml</SCPDURL>
+      </service>
+    </serviceList>
+    <implementationList>
+      <implementationFile>I_HWPush1.xml</implementationFile>
+    </implementationList>
+  </device>
+</root>
+ 

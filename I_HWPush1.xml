@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<implementation>
+  <functions>
+
+  local https = require("ssl.https")
+  local ltn12 = require "ltn12"
+
+  local SID = "urn:intvelt-com:serviceId:HWPush1"
+
+  local MINLEN = 20
+  local URL = "https://pushhw.intvelt.com/push/push.php"
+--  local URL = "https://homewave.dreamhosters.com/push/push.php"
+
+
+  local deviceId = -1
+  local debug = 0
+  local push_id = ""
+
+
+    ---- generic utilities ----
+
+  local function log(text)
+    if (debug) then
+          luup.log("HomeWave Push Plugin: " .. text)
+    end
+  end
+
+  local function set_status(text)
+    if (deviceId > 0) then
+      luup.variable_set(SID, "PushStatus", text, deviceId)
+    end
+  end
+
+  local function toboolean(v)
+        return (type(v) == "string" and v == "true") or (type(v) == "number" and v ~= 0) or (type(v) == "boolean" and v) or (type(v) == "string" and v == "1")
+    end
+
+
+  function startup(lul_device)
+    deviceId = tonumber(lul_device)
+
+    log("Init device:" .. tostring(lul_device) .. "   at IP:" .. tostring(deviceIP) .. "  UUID:" .. tostring(deviceUUID))
+
+  push_id = luup.variable_get(SID, "PushID", lul_device)
+  if ((push_id == nil) or (string.len(push_id) &lt; MINLEN)) then
+    set_status("No valid push ID")
+  else
+    set_status("Ready")
+  end
+
+  end
+
+  function processIncoming(data)
+    log("*** Incoming ***:" .. data)
+  end
+
+  </functions>
+  <startup>startup</startup>
+  <incoming>
+    <lua>
+        processIncoming(tostring(lul_data))
+    </lua>
+  </incoming>
+  <actionList>
+    <action>
+      <serviceId>urn:intvelt-com:serviceId:HWPush1</serviceId>
+      <name>SendMessage</name>
+      <run>
+  local message = lul_settings.Msg
+  local sound = lul_settings.Sound
+  local push_id = luup.variable_get(SID, "PushID", lul_device)
+  local surl = require("socket.url")
+
+  if ((message == nil) or (string.len(message) == 0)) then
+    message = "Push test message"
+  end
+
+  if ((sound == nil) or (string.len(sound) == 0)) then
+    sound = "homewave"
+  end
+	local requesturl = URL .. "?pushdevice=" .. surl.escape(push_id) .. "&amp;message=" .. surl.escape(message) .. "&amp;sound=" .. surl.escape(sound)
+--	curl, response, http = luup.inet.wget(requesturl, 10)
+--	curl, response, http = luup.inet.request { url=requesturl, timeout=10, follow=true }
+	os.execute("curl -L " .. requesturl)
+--	set_status(response)
+	return true
+      </run>
+    </action>
+    <action>
+      <serviceId>urn:intvelt-com:serviceId:HWPush1</serviceId>
+      <name>SetID</name>
+      <run>
+  push_id = lul_settings.NewID
+    luup.variable_set(SID, "PushID", push_id, lul_device)
+  startup(lul_device)
+    return true
+      </run>
+    </action>
+  </actionList>
+</implementation>
+ 

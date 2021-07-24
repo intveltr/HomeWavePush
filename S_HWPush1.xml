@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<scpd xmlns="urn:schemas-upnp-org:service-1-0">
+  <specVersion>
+    <major>1</major>
+    <minor>0</minor>
+  </specVersion>
+  <serviceStateTable>
+    <stateVariable sendEvents="no">
+      <name>PushID</name>
+      <dataType>string</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>PushStatus</name>
+      <dataType>string</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>A_ARG_MSG</name>
+      <dataType>string</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>A_ARG_SOUND</name>
+      <dataType>string</dataType>
+    </stateVariable>
+  </serviceStateTable>
+  <actionList>
+    <action>
+      <name>SendMessage</name>
+      <argumentList>
+        <argument>
+          <name>Msg</name>
+          <direction>in</direction>
+          <relatedStateVariable>A_ARG_MSG</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>Sound</name>
+          <direction>in</direction>
+          <relatedStateVariable>A_ARG_SOUND</relatedStateVariable>
+      <defaultValue>homewave></defaultValue>
+        </argument>
+      </argumentList>    
+    </action>
+    <action>
+      <name>SetID</name>
+      <argumentList>
+        <argument>
+          <name>NewID</name>
+          <direction>in</direction>
+          <relatedStateVariable>PushID</relatedStateVariable>
+        </argument>
+      </argumentList>    
+  </action>
+  </actionList>
+</scpd>
+ 
