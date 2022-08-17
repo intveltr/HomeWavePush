@@ -81,7 +81,13 @@
 	local requesturl = URL .. "?pushdevice=" .. surl.escape(push_id) .. "&amp;message=" .. surl.escape(message) .. "&amp;sound=" .. surl.escape(sound)
 --	curl, response, http = luup.inet.wget(requesturl, 10)
 --	curl, response, http = luup.inet.request { url=requesturl, timeout=10, follow=true }
-	os.execute("curl -L " .. requesturl)
+        if luup.attr_get "openLuup" then
+                local fh = io.popen("curl -L -k \"" .. requesturl .. "\"")^M
+                local result = fh:read('*a')
+                fh:close()
+        else
+                os.execute("curl -L -k " .. requesturl)^M
+        end
 --	set_status(response)
 	return true
       </run>
